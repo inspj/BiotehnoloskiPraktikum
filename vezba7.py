@@ -74,4 +74,4 @@ for i in range(2):
         _sa_.append(_v_aktivnost_[i]/_c_pet_b_[i])
         
 print("Specificna aktivnost za sirovi: ", _sa_[0])
-print("Specificna aktivnost za uzorak: ", _sa_[1] )
+print("Specificna aktivnost za uzorak: ", _sa_[1])
