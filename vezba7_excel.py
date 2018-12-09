@@ -9,9 +9,6 @@ _k_b_ = 0.702
 #Konstana ravnoteze za DNS [dm^3/mmol]
 _k_dns_ = 0.24
 
-worksheet.write('A1', 'Kb = 0.702 ml/mg')
-worksheet.write('A2', 'Kdns = 0.24 dm3/mmol')
-
 #Potrebno nam je vreme u kome se odigravala reakcija
 t = int(input("Koliko dugo se odigravala reakcija: "))
 #Kolika je zapremina reakcione smese. Uzima u obzir zapreminu pufera, saharoze i enzima
@@ -23,24 +20,6 @@ _v_enzima_ = int(input("Kolika je zapremina enzima: "))
 
 if _v_enzima_ == 0 or _v_enzima_ == None:
     _v_enzima_ = 1
-
-podaci = (
-    ['t [s] = ', t],
-    ['V [ml] = ', V],
-    ['R = ', razblazenje],
-    ['Ve [ml] = ', _v_enzima_]
-)
-
-row = 3
-col = 0
-
-for item, value in (podaci):
-    worksheet.write(row, col, item, bold)
-    worksheet.write(row, col+1, value)
-    row += 1
-
-row += 1
-
 
 #Apsorbance za Bradforda
 _A_b_ = list()
@@ -100,7 +79,22 @@ _sa_ = list()
 for i in range(2):
         _sa_.append(round(_v_aktivnost_[i]/_c_pet_b_[i],3))
 
-
+#Upisivanje podataka u excel fajl
+worksheet.write('A1', 'Kb = 0.702 ml/mg')
+worksheet.write('A2', 'Kdns = 0.24 dm3/mmol')
+podaci = (
+    ['t [s] = ', t],
+    ['V [ml] = ', V],
+    ['R = ', razblazenje],
+    ['Ve [ml] = ', _v_enzima_]
+)
+row = 3
+col = 0
+for item, value in (podaci):
+    worksheet.write(row, col, item, bold)
+    worksheet.write(row, col+1, value)
+    row += 1
+row += 1
 col = 0
 worksheet.write(row, col, 'DNS', bold)
 worksheet.write(row, col+1, 'Apsorbanca')
@@ -125,7 +119,6 @@ row += 1
 worksheet.write(row,col, 'sirovi')
 worksheet.write(row, col+1, str(_aktivnost_[0]))
 worksheet.write(row, col+2, str(_v_aktivnost_[0]))
-
 row += 1
 worksheet.write(row, col, 'uzorak' )
 worksheet.write(row, col+1, str(_aktivnost_[1]))
@@ -149,8 +142,7 @@ worksheet.write(row,col, 'uzorak')
 worksheet.write(row, col+1, str(_A_b_[1]))
 worksheet.write(row, col+2, str(_c_pet_b_[1]))
 worksheet.write(row, col+3, str(_sa_[1]))
+workbook.close()
 
 print("Specificna aktivnost za sirovi: ", _sa_[0])
 print("Specificna aktivnost za uzorak: ", _sa_[1])
-
-workbook.close()
